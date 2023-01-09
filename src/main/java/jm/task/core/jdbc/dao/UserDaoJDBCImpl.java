@@ -52,6 +52,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(2,lastName);
             preparedStatement.setByte(3,age);
             preparedStatement.executeUpdate();
+            System.out.println("User с именем  - "+name+" добавлен в базу данных");
 
 
         } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        final String sql = "DELETE FROM users WHERE id=?";
+        final String sql = "DELETE FROM users WHERE id=?;";
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -77,10 +78,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        String sql = "SELECT * FROM users";
 
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
-            ResultSet resultSet = preparedStatement.getResultSet();
+        try (Statement statement = Util.getConnection().createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
             while (resultSet.next()) {
                 User user = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4));
                 user.setId(resultSet.getLong(1));

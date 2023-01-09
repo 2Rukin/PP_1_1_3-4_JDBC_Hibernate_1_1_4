@@ -13,12 +13,13 @@ public class Main {
 
         jdbc.createUsersTable();
         jdbc.saveUser("Ivav", "Petro", (byte) 10);
-//
-//        jdbc.saveUser("Sema", "Shniperson", (byte) 10);
-//        jdbc.saveUser("Izya", "Vepr", (byte) 10);
-//        jdbc.saveUser("Iskander", "Aga", (byte) 10);
-//        System.out.println(jdbc.getAllUsers());
-//        jdbc.cleanUsersTable();
-//        jdbc.dropUsersTable();
+
+        jdbc.saveUser("Sema", "Shniperson", (byte) 10);
+        jdbc.saveUser("Izya", "Vepr", (byte) 10);
+        jdbc.saveUser("Iskander", "Aga", (byte) 10);
+
+        System.out.println(jdbc.getAllUsers());
+        jdbc.cleanUsersTable();
+        jdbc.dropUsersTable();
     }
 }
