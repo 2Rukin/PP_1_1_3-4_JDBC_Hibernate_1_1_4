@@ -44,15 +44,17 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
 
-        String sql = "INSERT INTO users(name,lastName,age) VALUES (?,?,?)";
+        final String sql = "INSERT INTO users(name,lastName,age) VALUES (?,?,?)";
 
 
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)){
-            preparedStatement.setString(1,name);
-            preparedStatement.setString(2,lastName);
-            preparedStatement.setByte(3,age);
+        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-            System.out.println("User с именем  - "+name+" добавлен в базу данных");
+            preparedStatement.close();
+            System.out.println("User с именем  - " + name + " добавлен в базу данных");
+
 
 
         } catch (SQLException e) {
@@ -64,6 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
+
         final String sql = "DELETE FROM users WHERE id=?;";
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
@@ -76,18 +79,17 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
-    public List<User> getAllUsers() {
-        List<User> userList = new ArrayList<>();
 
-        try (Statement statement = Util.getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+    public List<User> getAllUsers() {
+
+        List<User> userList = new ArrayList<>();
+        try (ResultSet resultSet = Util.getConnection().prepareStatement("SELECT * FROM users").executeQuery()) {
             while (resultSet.next()) {
                 User user = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4));
                 user.setId(resultSet.getLong(1));
                 userList.add(user);
             }
             return userList;
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

@@ -9,7 +9,8 @@ import org.hibernate.Session;
 public class Main {
     public static void main(String[] args) {
 
-        UserDaoJDBCImpl jdbc = new UserDaoJDBCImpl();
+        UserDaoHibernateImpl jdbc = new UserDaoHibernateImpl();
+
 
         jdbc.createUsersTable();
         jdbc.saveUser("Ivav", "Petro", (byte) 10);
@@ -19,7 +20,7 @@ public class Main {
         jdbc.saveUser("Iskander", "Aga", (byte) 10);
 
         System.out.println(jdbc.getAllUsers());
-        jdbc.cleanUsersTable();
+//        jdbc.cleanUsersTable();
         jdbc.dropUsersTable();
     }
 }
