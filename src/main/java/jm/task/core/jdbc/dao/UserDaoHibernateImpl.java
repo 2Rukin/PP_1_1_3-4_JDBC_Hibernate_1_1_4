@@ -70,17 +70,6 @@ public class UserDaoHibernateImpl implements UserDao {
 
     }
 
-//    @Override
-//    public List<User> getAllUsers() {
-//        CriteriaBuilder criteriaBuilder = sessionFactory.getCriteriaBuilder();
-//        CriteriaQuery<User> userCriteriaQuery = criteriaBuilder.createQuery(User.class);
-//        Root<User> rootEntry = userCriteriaQuery.from(User.class);
-//        CriteriaQuery<User> all = userCriteriaQuery.select(rootEntry);
-//
-//        TypedQuery<User> allQuery = sessionFactory.openSession().createQuery(all);
-//        return allQuery.getResultList();
-//
-//    }
 
     @Override
     public List<User> getAllUsers() {
@@ -91,18 +80,6 @@ public class UserDaoHibernateImpl implements UserDao {
         return userList.size() > 0 ? userList : new ArrayList<>();
     }
 
-//    @Override
-//    public List<User> getAllUsers() {
-////        List<User> userList = new ArrayList<>()
-//
-//        Session session = sessionFactory.openSession();
-//        String hql = "SELECT FROM ";
-//        session.getTransaction();
-//        Query<User> query = session.createQuery(hql, User.class);
-////        session.getTransaction().commit();
-//
-//        return query.list();
-//    }
 
     @Override
     public void cleanUsersTable() {
